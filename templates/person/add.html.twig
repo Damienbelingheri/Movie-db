@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Ajouter une personne
+{% endblock %}
+
+{% block body %}
+<h1 class="mt-5"> Ajouter une personne </h1>
+
+{{ form_start(personForm, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_widget(personForm) }}
+<button class="btn btn-primary" type="submit">Valider</button>
+{{ form_end(personForm) }}
+
+{% endblock %}

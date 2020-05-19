@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <script src="https://kit.fontawesome.com/1e1917f7c6.js" crossorigin="anonymous"></script>
+    {% block stylesheets %}{% endblock %}
+
+    <title>{% block title %}MovieDB{% endblock %}</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-primary">
+        <a class="navbar-brand" href="{{ path('homepage') }}">
+            <img src="{{ asset('images/logo.svg') }}" width="30" height="30" class="d-inline-block align-top">
+            MovieDB
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="{{ path('category_list') }}">Categories</a>
+                <a class="nav-item nav-link" href="{{ path('movie_list') }}">Films</a>
+                <a class="nav-item nav-link" href="{{ path('person_list') }}">Persons</a>
+                <a class="nav-item nav-link" href="{{ path('post_list') }}">Blog</a>
+            </div>
+
+            <form class="form-inline my-2 my-lg-0" action="{{ path('movie_list') }}">
+                <input class="form-control mr-sm-2" name="search" type="search" placeholder="Rechercher un film"
+                    aria-label="Search" value="{{ app.request.get('search') }}">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Go</button>
+            </form>
+        </div>
+    </nav>
+    
+    <div class="container">
+
+        {% for type, messages in app.flashes %}
+        {% for message in messages %}
+        <div class="alert alert-{{ type }}" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endfor %}
+
+
+        {% block body %}{% endblock %}
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    {% block javascripts %}{% endblock %}
+</body>
+
+</html>

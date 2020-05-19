@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - {{ movie.title }}
+{% endblock %}
+
+{% block body %}
+<h1 class="mt-5">{{ movie.title }}</h1>
+<div class="d-flex justify-content-end">
+    <a href="{{ path('movie_update',{'id' : movie.id})}}" class=" btn btn-sm btn-dark">
+        <i class="fa fa-pencil-square-o" aria-hidden="true">modifier</i>
+    </a>
+    <a href="{{ path('movie_delete',{'id' : movie.id})}}" class="btn btn-sm btn-danger">
+        <i class="fa fa-trash-o" aria-hidden="true">Supprimer</i>
+    </a>
+    </div>
+<dl class="mt-5">
+
+
+    <img src="{{ asset('uploads/images/' ~   movie.picture) }}" alt="" height="200" width="200">
+
+
+
+    
+    {% if movie.releaseDate is not empty %}
+    <dt>Date de sortie</dt>
+    <dd>
+        {{ movie.releaseDate | date('d/m/Y') }}
+    </dd>
+    {% endif %}
+    {% if movie.director is not empty %}
+    <dt>Réalisateur</dt>
+    <dd>
+        <a href="{{ path('person_view', {'id': movie.director.id}) }}">
+            {{ movie.director.name }}
+        </a>
+    </dd>
+    {% endif %}
+    {% if movie.writers is not empty %}
+    <dt>Scénaristes</dt>
+    <dd>
+        {% for writer in movie.writers %}
+        {% if not loop.first %} - {% endif %}
+        <a href="{{ path('person_view', {'id': writer.id}) }}">
+            {{ writer.name }}
+        </a>
+        {% endfor %}
+    </dd>
+    {% endif %}
+    {% if movie.categories is not empty %}
+    <dt>Catégories</dt>
+    <dd>
+        {% for category in movie.categories %}
+        {% if not loop.first %} - {% endif %}
+        <a href="{{ path('category_view', {'id': category.id}) }}">
+            {{ category.label }}
+        </a>
+        {% endfor %}
+    </dd>
+    {% endif %}
+</dl>
+
+
+{% if movie.awards is not empty %}
+<h3 class="mt-5">Récompenses</h3>
+<div class="list-group">
+    {% for award in movie.awards %}
+    <div class="list-group-item">
+        {{ award.label }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+{% if movie.movieActors is not empty %}
+<h3 class="mt-5">Acteurs</h3>
+<div class="list-group">
+    {% for movieActor in movie.movieActors %}
+    <a href="{{ path('person_view', {'id': movieActor.person.id}) }}" class="list-group-item list-group-item-action">
+        <strong>{{ movieActor.person.name }}</strong> - {{ movieActor.characterName }}
+    </a>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if movie.posts is not empty %}
+<h3 class="mt-5">Articles</h3>
+<div class="list-group">
+    {% for post in movie.posts %}
+    <a href="{{ path('post_view', {'id': post.id}) }}" class="list-group-item list-group-item-action">
+        {{ post.title }}
+    </a>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} -Modifier un fim
+{% endblock %}
+
+{% block body %}
+<h1 class="mt-5">Modifier {{movie.title}}</h1>
+
+{{ form_start(movieForm, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_widget(movieForm) }}
+
+<button class="btn btn-primary" type="submit">Valider</button>
+{{ form_end(movieForm) }}
+
+{% endblock %}

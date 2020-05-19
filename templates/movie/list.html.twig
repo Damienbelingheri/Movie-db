@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} - Films
+{% endblock %}
+
+{% block body %}
+<h1 class="mt-5">Films</h1>
+<a type="button" href="{{ path('movie_add') }}" class="btn btn-light">Ajouter un film </a>
+<div class="mt-5">
+    {% if app.request.get('search') %}
+    <div class="alert alert-info" role="alert">
+        Resultat de la recheche pour "{{ app.request.get('search') }}"<br>
+        <a href="{{ path('movie_list') }}" class="alert-link">Annuler la recherche</a>
+    </div>
+    {% endif %}
+    <div class="list-group">
+        {% for movie in movies %}
+        <a href="{{ path('movie_view', {'id': movie.id}) }}" class="list-group-item list-group-item-action">
+            {{ movie.title }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

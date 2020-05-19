@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - {{ category.label }}
+{% endblock %}
+
+{% block body %}
+<h1 class="mt-5"> Catégories {{ category.label }}</h1>
+<div class="d-flex justify-content-end">
+    <a href="{{ path('category_update',{'id' : category.id})}}" class=" btn btn-sm btn-dark">
+        <i class="fa fa-pencil-square-o" aria-hidden="true">modifier</i>
+    </a>
+    <a href="{{ path('category_delete',{'id' : category.id})}}" class="btn btn-sm btn-danger">
+        <i class="fa fa-trash-o" aria-hidden="true">Supprimer</i>
+    </a>
+</div>
+
+
+<h3 class="mt-5">Films</h3>
+<div class="list-group">
+    {% for movie in category.movies %}
+    <a href="{{ path('movie_view', {'id': movie.id}) }}" class="list-group-item list-group-item-action">
+        {{ movie.title }} ({{ movie.releaseDate | date('Y') }})
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

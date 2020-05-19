@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - modification de la categorie {{category.label}}
+{% endblock %}
+
+{% block body %}
+<h1 class="mt-5">modification de la categorie {{category.label}}</h1>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<button class="btn btn-primary" type="submit">Valider</button>
+{{ form_end(form)}}
+
+{% endblock %}
